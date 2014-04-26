@@ -12,4 +12,7 @@ final class StartTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals("Start", "Start");
   }
 
+  public function testTravisHook() {
+    $this->assertStringStartsWith("Travis", "Travis building now");
+  }
 }
