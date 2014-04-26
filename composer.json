@@ -1,0 +1,11 @@
+{
+  "name": "getbonder/bonder",
+  "description": "The object oriented PHP framework",
+  "type": "library",
+  "require-dev": {
+    "phpunit/phpunit": "4.*"
+  },
+  "autoload-dev": {
+    "psr-4": {"BonderTest\\": "BonderTest/"}
+  }
+}
