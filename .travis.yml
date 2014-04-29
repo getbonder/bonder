@@ -2,7 +2,11 @@ language: php
 php:
   - 5.3
   - 5.4
-script: ./vendor/bin/phpunit BonderTest
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install
+  - wget https://scrutinizer-ci.com/ocular.phar
+script:
+  - ./vendor/bin/phpunit --coverage-clover=coverage.clover BonderTest
+after_script:
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
