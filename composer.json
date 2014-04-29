@@ -1,8 +1,10 @@
 {
-  "name": "getbonder/bonder",
+ "name": "getbonder/bonder",
   "description": "The object oriented PHP framework",
   "type": "library",
-    "require-dev": {
+  "keywords": ["framework", "oop", "mvc"],
+  "license": "Apache-2.0",
+  "require-dev": {
     "phpunit/phpunit": "4.*"
   },
   "autoload": {
@@ -10,5 +12,17 @@
   },
   "autoload-dev": {
     "psr-4": {"BonderTest\\": "BonderTest/"}
-  }
+  },
+  "authors": [
+    {
+      "name": "Hernan Bandura",
+      "email": "hbandura@gmail.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Dario Ocles",
+      "email": "dario.ocles@gmail.com",
+      "role": "Developer"
+    }
+  ]
 }
