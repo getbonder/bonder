@@ -7,6 +7,6 @@ before_script:
   - php composer.phar install
   - wget https://scrutinizer-ci.com/ocular.phar
 script:
-  - ./vendor/bin/phpunit --coverage-clover=coverage.clover BonderTest
+  - ./vendor/bin/phpunit -c phpunit_conf.xml --coverage-clover=coverage.clover BonderTest
 after_script:
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
