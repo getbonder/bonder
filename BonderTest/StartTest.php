@@ -9,7 +9,8 @@ namespace BonderTest;
 final class StartTest extends \PHPUnit_Framework_TestCase {
 
   public function testStart() {
-    $this->assertEquals("Start", "Start");
+    $example = new \Bonder\Example();
+    $this->assertEquals($example->hello(), "Testing coverrals");
   }
 
 }
