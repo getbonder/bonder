@@ -5,7 +5,7 @@ namespace Bonder\Http\Responses;
 /**
  * @author burzak
  */
-class BaseHttpResponse implements \Bonder\Http\HttpResponse {
+abstract class BaseHttpResponse implements \Bonder\Http\HttpResponse {
   protected $headers = array();
   protected $statusCode = 200;
   protected $content;

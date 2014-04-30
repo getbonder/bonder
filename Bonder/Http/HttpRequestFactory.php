@@ -10,7 +10,7 @@ namespace Bonder\Http;
 final class HttpRequestFactory implements \Bonder\RequestFactory {
   
   public function createRequest(\Bonder\Collections\Map $uriVariables) {
-    return new \Bonder\Http\HttpRequest(
+    return new \Bonder\Http\MapsHttpRequest(
       \Bonder\Collections\Map::fromReference($_GET),
       \Bonder\Collections\Map::fromReference($_POST),
       \Bonder\Collections\Map::fromReference($_COOKIE),

@@ -6,7 +6,7 @@ namespace BonderTest\Http;
  * @author hbandura
  * @author burzak
  */
-final class HttpRequestTest extends \PHPUnit_Framework_TestCase {
+final class MapsHttpRequestTest extends \PHPUnit_Framework_TestCase {
   
   public function testCreate() {
     $get = new \Bonder\Collections\Map();
@@ -16,7 +16,7 @@ final class HttpRequestTest extends \PHPUnit_Framework_TestCase {
     $server = new \Bonder\Collections\Map();
     $files = new \Bonder\Collections\Map();
     $uriVariables = new \Bonder\Collections\Map();
-    $request = new \Bonder\Http\HttpRequest(
+    $request = new \Bonder\Http\MapsHttpRequest(
       $get,
       $post,
       $cookies,
@@ -39,7 +39,7 @@ final class HttpRequestTest extends \PHPUnit_Framework_TestCase {
    * @return HTTPRequest
    */
   public function create(Array $serverVars) {
-    return new \Bonder\Http\HttpRequest(
+    return new \Bonder\Http\MapsHttpRequest(
       new \Bonder\Collections\Map(), // GET
       new \Bonder\Collections\Map(), // POST
       new \Bonder\Collections\Map(), // COOKIES

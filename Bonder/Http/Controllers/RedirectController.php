@@ -21,7 +21,7 @@ final class RedirectController extends \Bonder\Http\HttpController {
   }
 
   protected function post(\Bonder\Http\HttpRequest $request) {
-    return $this->get($context, $request);
+    return $this->get($request);
   }
 
 }
