@@ -57,6 +57,22 @@ class Map {
   }
   
   /**
+   * Returns true iff this Map is linked to the array given.
+   * 
+   * @param array $array the array to test if linked.
+   */
+  public function isLinkedTo(Array &$array) {
+    // Ugly implementation, is there any better way to do this in php?
+    // haven't found a way to compare references for arrays
+    // since spl_object_hash only works for objects.
+    $initialCount = count($array);
+    $this->values[] = TRUE; // Test value
+    $linked = (count($array) > $initialCount);
+    array_pop($this->values);
+    return $linked;
+  }
+  
+  /**
    * Returns the value assigned to the given key.
    * 
    * @param string $key the key.

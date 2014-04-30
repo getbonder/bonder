@@ -19,16 +19,18 @@ final class MapTest extends \PHPUnit_Framework_TestCase {
   }
   
   public function testFromArray() {
-    $map = \Bonder\Collections\Map::fromArray(array(
+    $array = array(
       '7' => 'seven',
       '19' => 'nineteen',
       '31' => 'thirty-one'
-    ));
+    );
+    $map = \Bonder\Collections\Map::fromArray($array);
     $this->assertEquals(3, $map->size());
     $this->assertEquals('seven', $map->get('7'));
     $this->assertEquals('nineteen', $map->get('19'));
     $this->assertEquals('thirty-one', $map->get('31'));
     $this->assertEquals('default', $map->get('91', 'default'));
+    $this->assertFalse($map->isLinkedTo($array));
   }
   
   public function testFromReference() {
@@ -43,6 +45,7 @@ final class MapTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(2, $map->size());
     $map->remove('31');
     $this->assertEquals(1, $map->size());
+    $this->assertTrue($map->isLinkedTo($array));
   }
   
   public function testLinkTo() {
@@ -61,6 +64,7 @@ final class MapTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(2, $map->size());
     unset($array['19']);
     $this->assertEquals(1, $map->size());
+    $this->assertTrue($map->isLinkedTo($array));
   }
   
   public function testDefaultGetObject() {
