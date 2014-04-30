@@ -1,5 +1,6 @@
+filter:
+    paths: ["Bonder"]
 tools:
-    excluded_dirs: ["BonderTest"]
     external_code_coverage: true
     php_pdepend: true
     php_cpd: true
