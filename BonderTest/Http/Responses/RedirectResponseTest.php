@@ -14,6 +14,7 @@ final class RedirectResponseTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(302, $response->getStatusCode());
     $headers = $response->getHeaders();
     $this->assertTrue(array_search("Location: $url", $headers) !== false);
+    $this->assertEmpty($response->getContent());
   }
   
 }

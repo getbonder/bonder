@@ -5,14 +5,14 @@ namespace BonderTest\Http\Responses;
 /**
  * @author hbandura
  */
-final class FileNotFoundResponseTest extends BaseResponseTest {
+final class InternalServerErrorResponseTest extends BaseResponseTest {
   
   protected function getCode() {
-    return 404;
+    return 500;
   }
   
   protected function createResponse($headers, $code, $content) {
-    return new \Bonder\Http\Responses\FileNotFoundResponse(
+    return new \Bonder\Http\Responses\InternalServerErrorResponse(
       $content, $headers);
   }
 }
