@@ -11,7 +11,7 @@ final class Configurator implements \Bonder\Object\ObjectProvider {
   
   /**
    * 
-   * @var unknown_type
+   * @var \Bonder\Context
    */
   private $context;
   
