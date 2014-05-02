@@ -25,6 +25,11 @@ final class Starter {
   private $providerFactory;
   
   /**
+   * @var \Bonder\Controller
+   */
+  private $default;
+  
+  /**
    * Creates a new Starter with the configuration given.
    * 
    * @param \Bonder\ConfigurationFactory $factory the factory.
@@ -67,7 +72,7 @@ final class Starter {
     $job = new \Bonder\Process\FactoryJob(
       $uri, 
       $this->configurationFactory->getRequestFactory(), 
-      $filterChainProvider);
+      $chainProvider);
     $processor = new \Bonder\Process\Processor();
     $response = $processor->process($job);
     $response->writeTo($this->output);

@@ -32,7 +32,7 @@ final class RegexControllerProvider
    */
   public function getResult($uri) {
     $result = $this->multiplexor->getFirstMatch($uri);
-    $controller = $default;
+    $controller = $this->default;
     $uriVariables = new \Bonder\Collections\Map();
     if (!is_null($result)) {
       $controller = $result->getValue();

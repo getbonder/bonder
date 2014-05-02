@@ -121,13 +121,11 @@ final class MapsHttpRequest implements \Bonder\Http\HttpRequest {
   public function getHttpProtocol() {
     // Copied from https://github.com/facebook/facebook-php-sdk
     /*apache + variants specific way of checking for https*/
-    if ($this->server->get('HTTPS') &&
-      ($this->server->get('HTTPS') === 'on' || $this->server->get('HTTPS') == 1)) {
+    if (in_array($this->server->get('HTTPS'), array(1, 'on', '1'), true)) {
       return 'https';
     }
     /*nginx way of checking for https*/
-    if ($this->server->get('SERVER_PORT') &&
-      ($this->server->get('SERVER_PORT') === '443')) {
+    if ($this->server->get('SERVER_PORT') === '443') {
       return 'https';
     }
     return 'http';

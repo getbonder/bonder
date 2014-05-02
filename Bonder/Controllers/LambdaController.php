@@ -18,7 +18,7 @@ final class LambdaController implements \Bonder\Controller {
   /**
    * Creates a new LambdaController with the lambda function given.
    * 
-   * @param function $lambda function.
+   * @param \Closure $lambda function.
    */
   public function __construct($lambda) {
     $this->lambda = $lambda;
