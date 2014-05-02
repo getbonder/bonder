@@ -51,7 +51,7 @@ final class RegexMultiplexorFilterChainProvider implements FilterChainProvider {
    * @return \Bonder\Filters\FilterChainProviderResult the filter chain result,
    *  or null if no controller was found.
    */
-  public function create($uri) {
+  public function get($uri) {
     $controllerResult = $this->controllerMultiplexor->getFirstMatch($uri);
     if (is_null($controllerResult)) {
       return null;
