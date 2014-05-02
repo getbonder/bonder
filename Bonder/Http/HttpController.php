@@ -23,9 +23,9 @@ abstract class HttpController implements \Bonder\Controller, \Bonder\ContextAwar
     return $this->context;
   }
 
-  public function service(\Bonder\Request $request) {
+  public final function service(\Bonder\Request $request) {
     if (!$request instanceof \Bonder\Http\HttpRequest) {
-      throw new \Bonder\Exceptions\Exception("Received a non HttpRequest");
+      throw new \InvalidArgumentException("Received a non HttpRequest");
     }
     $method = $request->getMethod();
     return $this->$method($request);
@@ -37,10 +37,8 @@ abstract class HttpController implements \Bonder\Controller, \Bonder\ContextAwar
    * @param \Bonder\Http\HttpRequest $request the request.
    * @return \Bonder\Http\HttpResponse the response.
    */
-  protected function get(\Bonder\Http\HttpRequest $request) {
-    return new \Bonder\Http\Responses\InternalServerErrorHttpResponse(
-      'Not implemented'
-    );
+  public function get(\Bonder\Http\HttpRequest $request) {
+    throw new \Bonder\Exceptions\NotImplementedException();
   }
   
   /**
@@ -49,10 +47,8 @@ abstract class HttpController implements \Bonder\Controller, \Bonder\ContextAwar
    * @param \Bonder\Http\HttpRequest $request the request.
    * @return \Bonder\Http\HttpResponse the response.
    */
-  protected function post(\Bonder\Http\HttpRequest $request) {
-    return new \Bonder\Http\Responses\InternalServerErrorHttpResponse(
-      'Not implemented'
-    );
+  public function post(\Bonder\Http\HttpRequest $request) {
+    throw new \Bonder\Exceptions\NotImplementedException();
   }
   
 }

@@ -2,6 +2,9 @@
 
 namespace BonderTest\Http;
 
+/**
+ * @author hbandura
+ */
 final class HttpConfigurationFactoryTest extends \PHPUnit_Framework_TestCase {
   
   public function testUriProvider() {

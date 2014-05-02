@@ -16,11 +16,11 @@ final class RedirectController extends \Bonder\Http\HttpController {
     $this->redirectUri = $redirectUri;
   }
 
-  protected function get(\Bonder\Http\HttpRequest $request) {
+  public function get(\Bonder\Http\HttpRequest $request) {
     return new \Bonder\Http\Responses\RedirectResponse($this->redirectUri);
   }
 
-  protected function post(\Bonder\Http\HttpRequest $request) {
+  public function post(\Bonder\Http\HttpRequest $request) {
     return $this->get($request);
   }
 
