@@ -45,7 +45,7 @@ final class CrafterFilterChainProvider implements
     $controllerResult = $this->controllerProvider->getResult($uri);
     $filters = $this->filtersProvider->getFilters($uri);
     return new \Bonder\Filters\FilterChainProviderResult(
-      new \Bonder\Filters\FilterChain($filters, $controllerResult->getController()), 
+      new \Bonder\Filters\SimpleFilterChain($filters, $controllerResult->getController()), 
       $controllerResult->getUriVariables());
   }
   

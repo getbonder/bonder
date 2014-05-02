@@ -15,7 +15,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase {
       $this->getMock("\Bonder\Filter"),
       $this->getMock("\Bonder\Filter")
     );
-    $fc = new \Bonder\Filters\FilterChain($filters, $controller);
+    $fc = new \Bonder\Filters\SimpleFilterChain($filters, $controller);
     $this->assertSame($controller, $fc->getController());
     $this->assertEquals($filters, $fc->getFilters());
   }
@@ -24,7 +24,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase {
     $self = $this;
     $response = $this->getMock("\Bonder\Response");
     $originalRequest = $this->getMock("\Bonder\Request");
-    $fc = new \Bonder\Filters\FilterChain(array(), 
+    $fc = new \Bonder\Filters\SimpleFilterChain(array(), 
       new \Bonder\Controllers\LambdaController(
         function(\Bonder\Request $request) use ($self, $originalRequest, $response) {
           $self->assertSame($originalRequest, $request);
@@ -45,7 +45,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase {
     for ($i = 0; $i < 20; $i++) {
       $filters[] = $this->getFilterLink($resultFilters, $i);
     }
-    $fc = new \Bonder\Filters\FilterChain($filters, 
+    $fc = new \Bonder\Filters\SimpleFilterChain($filters, 
       new \Bonder\Controllers\FixedResponseController($response));
     $controllerResponse = $fc->call($request);
     $this->assertSame($response, $controllerResponse);
@@ -83,7 +83,7 @@ class FilterChainTest extends \PHPUnit_Framework_TestCase {
       $this->getDropFilter($dropFilterResponse),
       $this->getFilterLink($arr, 2)
     );
-    $fc = new \Bonder\Filters\FilterChain($filters,
+    $fc = new \Bonder\Filters\SimpleFilterChain($filters,
       new \Bonder\Controllers\FixedResponseController($controllerResponse));
     $response = $fc->call($request);
     $this->assertSame($response, $dropFilterResponse);

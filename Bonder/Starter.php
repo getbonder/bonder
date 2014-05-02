@@ -33,6 +33,9 @@ final class Starter {
     $this->configurationFactory = $factory;
     $this->output = new \Bonder\Streams\StdOutStream();
     $this->providerFactory = new \Bonder\Object\StandardObjectProviderFactory();
+    $this->default = new \Bonder\Controllers\LambdaController(function() {
+      throw new \Bonder\Exceptions\NotImplementedException();
+    });
   }
   
   /**
@@ -45,18 +48,28 @@ final class Starter {
   public function start(Array $resources, Array $controllers, Array $filters) {
     $controllerMultiplexor = new \Bonder\Util\RegexMultiplexor($controllers);
     $filtersMultiplexor = new \Bonder\Util\RegexMultiplexor($filters);
-    $context = new \Bonder\Contexts\LazyMapContext(
-      \Bonder\Collections\Map::fromArray($resources),
-      $this->providerFactory
+    $context = new \Bonder\Contexts\MapContext(
+      \Bonder\Collections\Map::fromArray($resources)
     );
-    $chainProvider = new \Bonder\Filters\RegexMultiplexorFilterChainProvider(
-      $this->providerFactory->getObject($context),
-      $controllerMultiplexor,
-      $filtersMultiplexor
+    // Todo, wrap the controller and filters provider with a 
+    // contextsetter to set the context.
+    $controllerProvider = new \Bonder\Controllers\RegexControllerProvider(
+      $controllerMultiplexor, 
+      $this->default
     );
-    $processor = new Processor();
-    $response = $processor->process($this->configurationFactory, 
-      $chainProvider);
+    $filtersProvider = new \Bonder\Filters\RegexFiltersProvider(
+      $filtersMultiplexor);
+    $chainProvider = new \Bonder\Filters\CrafterFilterChainProvider(
+      $controllerProvider, 
+      $filtersProvider
+    );
+    $uri = $this->configurationFactory->getUriProvider()->getUri();
+    $job = new \Bonder\Process\FactoryJob(
+      $uri, 
+      $this->configurationFactory->getRequestFactory(), 
+      $filterChainProvider);
+    $processor = new \Bonder\Process\Processor();
+    $response = $processor->process($job);
     $response->writeTo($this->output);
     return $response;
   }

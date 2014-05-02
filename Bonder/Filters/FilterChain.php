@@ -7,46 +7,21 @@ namespace Bonder\Filters;
  * 
  * @author hbandura
  */
-final class FilterChain implements \Bonder\Filters\NextFilterCaller {
-  
-  /**
-   * @var \Bonder\Filter[]
-   */
-  private $filters;
-  
-  /**
-   * @var \Bonder\Controller
-   */
-  private $controller;
-  
-  /**
-   * Creates a new FilterChain.
-   * 
-   * @param \Bonder\Filter[] $filters the filters, in order.
-   * @param \Bonder\Controller $controller the controller, the end of the chain.
-   */
-  public function __construct(Array $filters, \Bonder\Controller $controller) {
-    $this->filters = $filters;
-    $this->controller = $controller;
-  }
+interface FilterChain {
   
   /**
    * Returns the controller.
    * 
    * @return \Bonder\Controller the controller.
    */
-  public function getController() {
-    return $this->controller;
-  }
+  public function getController();
   
   /**
    * Returns the filters list.
    * 
    * @return \Bonder\Filter[] the filters list.
    */
-  public function getFilters() {
-    return $this->filters;
-  }
+  public function getFilters();
   
   /**
    * Executes the first filter in the chain. If no filters are available,
@@ -55,13 +30,6 @@ final class FilterChain implements \Bonder\Filters\NextFilterCaller {
    * @param \Bonder\Request $request the request.
    * @return \Bonder\Response the response.
    */
-  public function call(\Bonder\Request $request) {
-    if (empty($this->filters)) {
-      return $this->controller->service($request);
-    }
-    $nextFilter = reset($this->filters);
-    $nextFilters = array_slice($this->filters, 1);
-    return $nextFilter->filter($request, new FilterChain($nextFilters, $this->controller));
-  }
+  public function call(\Bonder\Request $request);
   
 }
