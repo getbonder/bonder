@@ -5,7 +5,7 @@ namespace Bonder\Http\Responses;
 /**
  * @author burzak
  */
-abstract class BaseHttpResponse implements \Bonder\Http\HttpResponse {
+class BaseHttpResponse implements \Bonder\Http\HttpResponse {
   protected $headers = array();
   protected $statusCode = 200;
   protected $content;
@@ -24,7 +24,7 @@ abstract class BaseHttpResponse implements \Bonder\Http\HttpResponse {
   }
 
   protected function getStatusCodeHeader() {
-    $code = array (
+    $texts = \Bonder\Collections\Map::fromArray(array (
       100 => 'Continue',
       101 => 'Switching Protocols',
       102 => 'Processing',
@@ -75,24 +75,17 @@ abstract class BaseHttpResponse implements \Bonder\Http\HttpResponse {
       507 => 'Insufficient Storage',
       509 => 'Bandwidth Limit Exceeded',
       510 => 'Not Extended'
-    );
-    return "HTTP/1.1 " . $this->statusCode . " " . $code[$this->statusCode];
+    ));
+    return "HTTP/1.1 " . $this->statusCode . " " 
+      . $texts->get($this->statusCode, "");
   }
 
   public function getHeaders() {
     return array_merge(array($this->getStatusCodeHeader()), $this->headers);
   }
 
-  public function setHeaders(Array $headers) {
-    $this->headers = $headers;
-  }
-
   public function getContent() {
     return $this->content;
-  }
-
-  public function setContent($content) {
-    $this->content = $content;
   }
   
   public function getStatusCode() {
