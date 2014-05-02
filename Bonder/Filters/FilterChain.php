@@ -31,6 +31,24 @@ final class FilterChain implements \Bonder\Filters\NextFilterCaller {
   }
   
   /**
+   * Returns the controller.
+   * 
+   * @return \Bonder\Controller the controller.
+   */
+  public function getController() {
+    return $this->controller;
+  }
+  
+  /**
+   * Returns the filters list.
+   * 
+   * @return \Bonder\Filter[] the filters list.
+   */
+  public function getFilters() {
+    return $this->filters;
+  }
+  
+  /**
    * Executes the first filter in the chain. If no filters are available,
    * calls the controller.
    * 

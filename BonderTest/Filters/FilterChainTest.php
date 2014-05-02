@@ -7,6 +7,19 @@ namespace BonderTest\Filters;
  */
 class FilterChainTest extends \PHPUnit_Framework_TestCase {
   
+  public function testGetters() {
+    $controller = $this->getMock("\Bonder\Controller");
+    $filters = array(
+      $this->getMock("\Bonder\Filter"),
+      $this->getMock("\Bonder\Filter"),
+      $this->getMock("\Bonder\Filter"),
+      $this->getMock("\Bonder\Filter")
+    );
+    $fc = new \Bonder\Filters\FilterChain($filters, $controller);
+    $this->assertSame($controller, $fc->getController());
+    $this->assertEquals($filters, $fc->getFilters());
+  }
+  
   public function testEmptyFilters() {
     $self = $this;
     $response = $this->getMock("\Bonder\Response");
