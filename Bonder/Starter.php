@@ -52,10 +52,11 @@ final class Starter {
     $chainProvider = new \Bonder\Filters\RegexMultiplexorFilterChainProvider(
       $this->providerFactory->getObject($context),
       $controllerMultiplexor,
-      $filterMultiplexor
+      $filtersMultiplexor
     );
     $processor = new Processor();
-    $response = $processor->process($this->factory, $chainProvider);
+    $response = $processor->process($this->configurationFactory, 
+      $chainProvider);
     $response->writeTo($this->output);
     return $response;
   }
