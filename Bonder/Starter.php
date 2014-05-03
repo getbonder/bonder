@@ -51,6 +51,7 @@ final class Starter {
    * @param array $filters the filters.
    */
   public function start(Array $resources, Array $controllers, Array $filters) {
+    // Refactor me, too long
     $controllerMultiplexor = new \Bonder\Util\RegexMultiplexor($controllers);
     $filtersMultiplexor = new \Bonder\Util\RegexMultiplexor($filters);
     $context = new \Bonder\Contexts\MapContext(
