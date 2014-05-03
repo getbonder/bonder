@@ -56,6 +56,7 @@ final class Starter {
     $context = new \Bonder\Contexts\MapContext(
       \Bonder\Collections\Map::fromArray($resources)
     );
+    $configurator = new \Bonder\Util\ContextConfigurator($context);
     $wrappedProvider = new \Bonder\Controllers\RegexControllerProvider(
       $controllerMultiplexor, 
       $this->default
@@ -64,8 +65,12 @@ final class Starter {
       $wrappedProvider, 
       $configurator
     );
-    $filtersProvider = new \Bonder\Filters\RegexFiltersProvider(
+    $wrappedProvider = new \Bonder\Filters\RegexFiltersProvider(
       $filtersMultiplexor);
+    $filtersProvider = new \Bonder\Filters\ConfiguredFiltersProvider(
+      $wrappedProvider, 
+      $configurator
+    );
     $chainProvider = new \Bonder\Filters\CrafterFilterChainProvider(
       $controllerProvider, 
       $filtersProvider
