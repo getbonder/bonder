@@ -12,7 +12,7 @@ interface Matcher {
   /**
    * Returns true iff the literal matches against the expression.
    * 
-   * @param string_type $expression the expression.
+   * @param string $expression the expression.
    * @param string $literal the literal.
    */
   public function match($expression, $literal);
