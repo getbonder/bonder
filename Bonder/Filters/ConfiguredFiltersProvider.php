@@ -39,7 +39,12 @@ final class ConfiguredFiltersProvider
    * @see Bonder\Filters.FiltersProvider::getFilters()
    */
   public function getFilters($uri) {
-    
+    $result = $this->wrappedProvider->getFilters($uri);
+    $configurator = $this->configurator;
+    array_walk($result, function($filter) use ($configurator) {
+      $configurator->configure($filter);
+    });
+    return $result;
   }
   
 }
