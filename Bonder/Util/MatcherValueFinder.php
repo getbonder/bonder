@@ -58,18 +58,28 @@ final class MatcherValueFinder implements \Bonder\Util\ValueFinder {
   private function getMatches($literal, $max = null) {
     $matches = array();
     foreach ($this->values as $key => &$value) {
-      if (!$this->matcher->match($key, $literal)) {
-        continue;
-      }
-      $matches[] = new \Bonder\Util\ValueFinderResult(
-        $key, $literal, $value, 
-        $this->matcher->getMatchVariables($key, $literal)
-      );
       if (!is_null($max) && count($matches) >= $max) {
         break;
       }
+      $this->addIfMatch($matches, $key, $value, $literal);
     }
     return $matches;
+  }
+  
+  /**
+   * @param array $matches
+   * @param integer|string $key
+   * @param mixed $value
+   * @param string $literal
+   */
+  private function addIfMatch(Array &$matches, $key, &$value, $literal) {
+    if (!$this->matcher->match($key, $literal)) {
+      return;
+    }
+    $matches[] = new \Bonder\Util\ValueFinderResult(
+      $key, $literal, $value,
+      $this->matcher->getMatchVariables($key, $literal)
+    );
   }
   
 }
