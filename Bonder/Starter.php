@@ -46,22 +46,23 @@ final class Starter {
    */
   public function start(Array $resources, Array $controllers, Array $filters) {
     // Refactor me, too long
-    $controllerMultiplexor = new \Bonder\Util\RegexMultiplexor($controllers);
-    $filtersMultiplexor = new \Bonder\Util\RegexMultiplexor($filters);
+    $matcher = new \Bonder\Util\RegexMatcher();
+    $controllerFinder = new \Bonder\Util\MatcherValueFinder($matcher, $controllers);
+    $filtersFinder = new \Bonder\Util\MatcherValueFinder($matcher, $filters);
     $context = new \Bonder\Contexts\MapContext(
       \Bonder\Collections\Map::fromArray($resources)
     );
     $configurator = new \Bonder\Util\ContextConfigurator($context);
-    $wrappedProvider = new \Bonder\Controllers\RegexControllerProvider(
-      $controllerMultiplexor, 
+    $wrappedProvider = new \Bonder\Controllers\ValueFinderControllerProvider(
+      $controllerFinder, 
       $this->default
     );
     $controllerProvider = new \Bonder\Controllers\ConfiguredControllerProvider(
       $wrappedProvider, 
       $configurator
     );
-    $wrappedProvider = new \Bonder\Filters\RegexFiltersProvider(
-      $filtersMultiplexor);
+    $wrappedProvider = new \Bonder\Filters\ValueFinderFiltersProvider(
+      $filtersFinder);
     $filtersProvider = new \Bonder\Filters\ConfiguredFiltersProvider(
       $wrappedProvider, 
       $configurator

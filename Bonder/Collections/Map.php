@@ -126,10 +126,30 @@ class Map {
   /**
    * Returns true iff key is set
    *
-   * @param string $key
-   * @return boolean
+   * @param string $key the key.
+   * @return boolean true iff key is set. 
    */
   public function containsKey($key) {
     return isset($this->values[$key]);
   }
+  
+  /**
+   * Returns true iff this map contains all key/values from the $otherMap.
+   * 
+   * @param Map $otherMap the other map.
+   * @return boolean true iff this map contains all key/values from the
+   * $otherMap.
+   */
+  public function contains(Map $otherMap) {
+    foreach ($otherMap->values as $k => $v) {
+      if (!$this->containsKey($k)) {
+        return false;
+      }
+      if ($this->get($k) != $v) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
 }

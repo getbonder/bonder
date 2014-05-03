@@ -109,4 +109,21 @@ final class MapTest extends \PHPUnit_Framework_TestCase {
     $this->assertTrue($map->isEmpty());
     $this->assertEquals(0, $map->size());
   }
+  
+  public function testContains() {
+    $map = new \Bonder\Collections\Map();
+    $map->set("mykey", 79);
+    $map->set("mykey2", 80);
+    $otherMap = new \Bonder\Collections\Map();
+    $this->assertTrue($map->contains($otherMap));
+    $otherMap->set("mykey", 79);
+    $this->assertTrue($map->contains($otherMap));
+    $otherMap->set("mykey3", 81);
+    $this->assertFalse($map->contains($otherMap));
+    $this->assertFalse($otherMap->contains($map));
+    $map->remove("mykey2");
+    $this->assertTrue($otherMap->contains($map));
+    $map->set("mykey", "old_79");
+    $this->assertFalse($otherMap->contains($map));
+  }
 }
