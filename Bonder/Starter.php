@@ -20,11 +20,6 @@ final class Starter {
   private $output;
   
   /**
-   * @var \Bonder\Object\ObjectProvider
-   */
-  private $providerFactory;
-  
-  /**
    * @var \Bonder\Controller
    */
   private $default;
@@ -37,7 +32,6 @@ final class Starter {
   public function __construct(\Bonder\ConfigurationFactory $factory) {
     $this->configurationFactory = $factory;
     $this->output = new \Bonder\Streams\StdOutStream();
-    $this->providerFactory = new \Bonder\Object\StandardObjectProviderFactory();
     $this->default = new \Bonder\Controllers\LambdaController(function() {
       throw new \Bonder\Exceptions\NotImplementedException();
     });

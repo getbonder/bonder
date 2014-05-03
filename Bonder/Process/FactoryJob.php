@@ -25,7 +25,7 @@ final class FactoryJob implements \Bonder\Process\Job {
    * chain provider given.
    * 
    * @param $uri the uri.
-   * @param \Bonder\RequestFactory the request factory.
+   * @param \Bonder\RequestFactory $requestFactory the request factory.
    * @param \Bonder\Filters\FilterChainProvider $filterChainProvider the 
    * filter chain provider.
    */
