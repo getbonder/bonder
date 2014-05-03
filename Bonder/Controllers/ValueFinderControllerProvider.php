@@ -16,14 +16,12 @@ final class ValueFinderControllerProvider
   private $valueFinder;
   
   /**
-   * @var \Bonder\Controller
+   * Creates a new controller provider with the value finder given.
+   * 
+   * @param \Bonder\Util\ValueFinder $valueFinder the value finder.
    */
-  private $default;
-  
-  public function __construct(\Bonder\Util\ValueFinder $valueFinder, 
-    \Bonder\Controller $default) {
+  public function __construct(\Bonder\Util\ValueFinder $valueFinder) {
     $this->valueFinder = $valueFinder;
-    $this->default = $default;
   }
   
   /**
@@ -32,14 +30,11 @@ final class ValueFinderControllerProvider
    */
   public function getResult($uri) {
     $result = $this->valueFinder->getFirstValue($uri);
-    $controller = $this->default;
-    $uriVariables = new \Bonder\Collections\Map();
-    if (!is_null($result)) {
-      $controller = $result->getValue();
-      $uriVariables = $result->getVariables();
+    if (is_null($result)) {
+      return null;
     }
     return new \Bonder\Controllers\ControllerProviderResult(
-      $controller, $uriVariables);
+      $result->getValue(), $result->getVariables());
   }
   
 }

@@ -54,9 +54,10 @@ final class Starter {
     );
     $configurator = new \Bonder\Util\ContextConfigurator($context);
     $wrappedProvider = new \Bonder\Controllers\ValueFinderControllerProvider(
-      $controllerFinder, 
-      $this->default
+      $controllerFinder
     );
+    $wrappedProvider = new \Bonder\Controllers\DefaultControllerProvider(
+      $wrappedProvider, $this->default, new \Bonder\Collections\Map());
     $controllerProvider = new \Bonder\Controllers\ConfiguredControllerProvider(
       $wrappedProvider, 
       $configurator
