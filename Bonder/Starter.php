@@ -56,11 +56,13 @@ final class Starter {
     $context = new \Bonder\Contexts\MapContext(
       \Bonder\Collections\Map::fromArray($resources)
     );
-    // Todo, wrap the controller and filters provider with a 
-    // contextsetter to set the context.
-    $controllerProvider = new \Bonder\Controllers\RegexControllerProvider(
+    $wrappedProvider = new \Bonder\Controllers\RegexControllerProvider(
       $controllerMultiplexor, 
       $this->default
+    );
+    $controllerProvider = new \Bonder\Controllers\ConfiguredControllerProvider(
+      $wrappedProvider, 
+      $configurator
     );
     $filtersProvider = new \Bonder\Filters\RegexFiltersProvider(
       $filtersMultiplexor);

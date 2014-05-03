@@ -1,13 +1,13 @@
 <?php
 
-namespace Bonder\Object;
+namespace Bonder\Util;
 
 /**
  * Configures objects.
  * 
  * @author hbandura
  */
-final class Configurator implements \Bonder\Object\ObjectProvider {
+final class ContextConfigurator implements \Bonder\Util\Configurator {
   
   /**
    * 
@@ -34,13 +34,13 @@ final class Configurator implements \Bonder\Object\ObjectProvider {
   }
   
   /**
-   * Configurates an object.
+   * Configures an object.
    * 
-   * @param mixed $object the object to configurate.
+   * @param mixed $object the object to configure.
    * @return mixed the same object.
    * @throws \Bonder\Exceptions\Exception if $object is not an object.
    */
-  public function getObject($object) {
+  public function configure($object) {
     if (!is_object($object)) {
       throw new \Bonder\Exceptions\Exception('$object is not an object');
     }
