@@ -10,6 +10,21 @@ namespace Bonder;
 final class Launcher {
   
   /**
+   * @var \Bonder\ConfigurationFactory
+   */
+  private $configurationFactory;
+  
+  /**
+   * @var \Bonder\Stream
+   */
+  private $output;
+  
+  /**
+   * @var \Bonder\Filters\FilterChainProvider
+   */
+  private $filterChainProvider;
+  
+  /**
    * Sets the configuration factory to use.
    * 
    * @param \Bonder\ConfigurationFactory $factory the configuration factory.
