@@ -25,6 +25,11 @@ final class Launcher {
   private $filterChainProvider;
   
   /**
+   * @var \Bonder\Process\Processor
+   */
+  private $processor;
+  
+  /**
    * Sets the configuration factory to use.
    * 
    * @param \Bonder\ConfigurationFactory $factory the configuration factory.
@@ -88,6 +93,26 @@ final class Launcher {
   }
   
   /**
+   * Sets the processor to use.
+   * 
+   * @param \Bonder\Process\Processor $processor the processor.
+   * @return \Bonder\Launcher this.
+   */
+  public function setProcessor(\Bonder\Process\Processor $processor) {
+    $this->processor = $processor;
+    return $this;
+  }
+  
+  /**
+   * Returns the processor.
+   * 
+   * @return \Bonder\Process\Processor the processor.
+   */
+  public function getProcessor() {
+    return $this->processor;
+  }
+  
+  /**
    * Launches bonder, and writes the response to the output stream.
    * 
    * @return \Bonder\Response the response.
@@ -100,8 +125,7 @@ final class Launcher {
       $uri,
       $factory->getRequestFactory(),
       $chainProvider);
-    $processor = new \Bonder\Process\Processor();
-    $response = $processor->process($job);
+    $response = $this->processor->process($job);
     $response->writeTo($this->getOutputStream());
     return $response;
   }

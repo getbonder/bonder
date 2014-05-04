@@ -5,11 +5,11 @@ namespace BonderTest\Process;
 /**
  * @author hbandura
  */
-final class ProcessorTest extends \PHPUnit_Framework_TestCase {
+final class SimpleProcessorTest extends \PHPUnit_Framework_TestCase {
   
   public function testProcess() {
     $job = $this->getMock("\Bonder\Process\Job");
-    $processor = new \Bonder\Process\Processor();
+    $processor = new \Bonder\Process\SimpleProcessor();
     $fc = $this->getMock("\Bonder\Filters\FilterChain");
     $request = $this->getMock("\Bonder\Request");
     $response = $this->getMock("\Bonder\Response");
