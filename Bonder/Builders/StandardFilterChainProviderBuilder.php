@@ -30,7 +30,8 @@ final class StandardFilterChainProviderBuilder {
   }
   
   /**
-   * Sets the controller provider builder to use.
+   * Sets the controller provider builder to use. It is assumed that the context 
+   * is the same as the used in the filters provider builder.
    * 
    * @param \Bonder\Builders\ControllerProviderBuilder 
    *   $controllerProviderBuilder the controller provider builder.
@@ -53,7 +54,8 @@ final class StandardFilterChainProviderBuilder {
   }
   
   /**
-   * Sets the filters provider builder.
+   * Sets the filters provider builder. It is assumed that the context is
+   * the same as the used in the controller provider builder.
    * 
    * @param \Bonder\Builders\FiltersProviderBuilder $filtersProviderBuilder
    *  the filters provider builder.
@@ -98,6 +100,15 @@ final class StandardFilterChainProviderBuilder {
   }
   
   /**
+   * Returns the controllers.
+   * 
+   * @return Array the controllers.
+   */
+  public function getControllers() {
+    return $this->controllerProviderBuilder->getControllers();
+  }
+  
+  /**
    * Sets the filters, as a regex => filters array.
    *
    * @param Array $filters the filters.
@@ -106,6 +117,15 @@ final class StandardFilterChainProviderBuilder {
   public function setFilters(Array $filters) {
     $this->filtersProviderBuilder->setFilters($filters);
     return $this;
+  }
+  
+  /**
+   * Returns the filters.
+   * 
+   * @return Array the filters.
+   */
+  public function getFilters() {
+    return $this->filtersProviderBuilder->getFilters();
   }
   
   /**
@@ -118,6 +138,16 @@ final class StandardFilterChainProviderBuilder {
     $this->controllerProviderBuilder->setContext($context);
     $this->filtersProviderBuilder->setContext($context);
     return $this;
+  }
+  
+  /**
+   * Returns the context used.
+   * 
+   * @return \Bonder\Context the context.
+   */
+  public function getContext() {
+    // Assume both use the same context.
+    return $this->controllerProviderBuilder->getContext();
   }
   
   /**

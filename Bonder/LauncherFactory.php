@@ -3,7 +3,7 @@
 namespace Bonder;
 
 /**
- * Launcher factory class.
+ * Launcher factory class / Facade for bonder use.
  * 
  * @author hbandura
  */
@@ -37,6 +37,65 @@ final class LauncherFactory {
     $launcher = self::getDefault($filterChainProvider);
     $launcher->setConfigurationFactory(new \Bonder\Http\HttpConfigurationFactory());
     return $launcher;
+  }
+  
+  /**
+   * Returns the standard filter chain provider builder.
+   * 
+   * @param array $resources the resources.
+   * @param array $controllers the controllers.
+   * @param array $filters the filters
+   * 
+   * @return \Bonder\Builders\StandardFilterChainProviderBuilder the builder.
+   */
+  public static function getStandardFCPBuilder(
+    Array $resources, Array $controllers, Array $filters) {
+    $builder = new \Bonder\Builders\StandardFilterChainProviderBuilder();
+    return $builder
+      ->setContext(new \Bonder\Contexts\MapContext(
+          \Bonder\Collections\Map::fromArray($resources)))
+      ->setControllers($controllers)
+      ->setFilters($filters);
+  }
+  
+  /**
+   * Returns a Launcher for http handling, using the resources given as a
+   * context, and the controllers and filters as arrays of 
+   * regexp => controller/filter.
+   * 
+   * @param array $resources the resources, the context.
+   * @param array $controllers the controllers as regex => controller.
+   * @param array $filters the filters as regex => filters.
+   * 
+   * @return \Bonder\Launcher the launcher.
+   */
+  public static function standardHttp(
+    Array $resources, Array $controllers, Array $filters) {
+    return self::http(
+      self::getStandardFCPBuilder($resources, $controllers, $filters)->build()
+    );
+  }
+  
+  /**
+   * Returns a Launcher for http handling, using the resources given as a
+   * context, and the controllers and filters as arrays of 
+   * regexp => controller/filter. If the uri is unmatched, the default
+   * controller is called.
+   * 
+   * @param array $resources the resources, the context.
+   * @param array $controllers the controllers as regex => controller.
+   * @param array $filters the filters as regex => filters.
+   * @param \Bonder\Controller $defaultController the default controller.
+   * 
+   * @return \Bonder\Launcher the launcher.
+   */
+  public static function standardHttpWithDefault(
+    Array $resources, Array $controllers, Array $filters,
+    \Bonder\Controller $defaultController) {
+    return self::http(
+      self::getStandardFCPBuilder($resources, $controllers, $filters)
+      ->setDefaultController($defaultController)->build()
+    );
   }
   
   /**

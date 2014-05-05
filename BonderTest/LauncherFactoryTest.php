@@ -7,7 +7,7 @@ namespace BonderTest;
  */
 final class LauncherFactoryTest extends \PHPUnit_Framework_TestCase {
   
-  public function testSimple() {
+  protected function setUp() {
     global $_SERVER;
     global $_POST;
     global $_GET;
@@ -21,6 +21,9 @@ final class LauncherFactoryTest extends \PHPUnit_Framework_TestCase {
     $_FILES = array();
     $_SESSION = array();
     $_SERVER['DOCUMENT_URI'] = '/aoeu/aoeu/aoeu';
+  }
+  
+  public function testHttp() {
     $filterChainProvider = $this->getMock("\Bonder\Filters\FilterChainProvider");
     $launcher = \Bonder\LauncherFactory::http($filterChainProvider);
     $this->assertSame($filterChainProvider, $launcher->getFilterChainProvider());
@@ -41,4 +44,48 @@ final class LauncherFactoryTest extends \PHPUnit_Framework_TestCase {
     $this->assertSame($response, $launcher->launch());
   }
   
+  public function testGetFCPBuilder() {
+    $resources = array('aoeu' => 'aoeusnthaoeu', 'shou' => 37);
+    $controllers = array('aoeuaoeu' => $this->getMock("\Bonder\Controller"));
+    $filters = array('aoeuuuu' => $this->getMock("\Bonder\Filter"));
+    $fcpBuilder = \Bonder\LauncherFactory::getStandardFCPBuilder(
+      $resources, $controllers, $filters);
+    $this->assertEquals($controllers, $fcpBuilder->getControllers());
+    $this->assertEquals($filters, $fcpBuilder->getFilters());
+    $context = $fcpBuilder->getContext();
+    foreach ($resources as $k => $v) {
+      $this->assertEquals($v, $context->get($k));
+    }
+  }
+  
+  public function testStandardHttp() {
+    $resources = array('aoeu' => 'aoeusnthaoeu', 'shou' => 37);
+    $controllers = array('aoeuaoeu' => $this->getMock("\Bonder\Controller"));
+    $filters = array('aoeuuuu' => $this->getMock("\Bonder\Filter"));
+    $launcher = \Bonder\LauncherFactory::standardHttp(
+      $resources, $controllers, $filters);
+    $this->assertEquals(
+      \Bonder\LauncherFactory::http(
+        \Bonder\LauncherFactory::getStandardFCPBuilder(
+          $resources, $controllers, $filters
+        )->build()
+      )
+    , $launcher);
+  }
+  
+  public function testStandardHttpWithDefault() {
+    $resources = array('aoeu' => 'aoeusnthaoeu', 'shou' => 37);
+    $controllers = array('aoeuaoeu' => $this->getMock("\Bonder\Controller"));
+    $filters = array('aoeuuuu' => $this->getMock("\Bonder\Filter"));
+    $controller = $this->getMock("\Bonder\Controller");
+    $launcher = \Bonder\LauncherFactory::standardHttpWithDefault(
+      $resources, $controllers, $filters, $controller);
+    $this->assertEquals(
+      \Bonder\LauncherFactory::http(
+        \Bonder\LauncherFactory::getStandardFCPBuilder(
+          $resources, $controllers, $filters
+        )->setDefaultController($controller)->build()
+      )
+      , $launcher);
+  }
 }
