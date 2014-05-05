@@ -10,7 +10,7 @@ namespace Bonder\Filters;
 final class FilterChainProviderResult {
   
   /**
-   * @var \Bonder\Filters\FilterChain;
+   * @var \Bonder\Filters\FilterChain
    */
   private $filterChain;
   
