@@ -25,7 +25,7 @@ final class LauncherFactoryTest extends \PHPUnit_Framework_TestCase {
   
   public function testHttp() {
     $filterChainProvider = $this->getMock("\Bonder\Filters\FilterChainProvider");
-    $launcher = \Bonder\LauncherFactory::http($filterChainProvider);
+    $launcher = \Bonder\LauncherFactory::getHttp($filterChainProvider);
     $this->assertSame($filterChainProvider, $launcher->getFilterChainProvider());
     $this->assertInstanceOf("\Bonder\Http\HttpConfigurationFactory", 
       $launcher->getConfigurationFactory());
@@ -62,10 +62,10 @@ final class LauncherFactoryTest extends \PHPUnit_Framework_TestCase {
     $resources = array('aoeu' => 'aoeusnthaoeu', 'shou' => 37);
     $controllers = array('aoeuaoeu' => $this->getMock("\Bonder\Controller"));
     $filters = array('aoeuuuu' => $this->getMock("\Bonder\Filter"));
-    $launcher = \Bonder\LauncherFactory::standardHttp(
+    $launcher = \Bonder\LauncherFactory::getStandardHttp(
       $resources, $controllers, $filters);
     $this->assertEquals(
-      \Bonder\LauncherFactory::http(
+      \Bonder\LauncherFactory::getHttp(
         \Bonder\LauncherFactory::getStandardFCPBuilder(
           $resources, $controllers, $filters
         )->build()
@@ -78,10 +78,10 @@ final class LauncherFactoryTest extends \PHPUnit_Framework_TestCase {
     $controllers = array('aoeuaoeu' => $this->getMock("\Bonder\Controller"));
     $filters = array('aoeuuuu' => $this->getMock("\Bonder\Filter"));
     $controller = $this->getMock("\Bonder\Controller");
-    $launcher = \Bonder\LauncherFactory::standardHttpWithDefault(
+    $launcher = \Bonder\LauncherFactory::getStandardHttpWithDefault(
       $resources, $controllers, $filters, $controller);
     $this->assertEquals(
-      \Bonder\LauncherFactory::http(
+      \Bonder\LauncherFactory::getHttp(
         \Bonder\LauncherFactory::getStandardFCPBuilder(
           $resources, $controllers, $filters
         )->setDefaultController($controller)->build()

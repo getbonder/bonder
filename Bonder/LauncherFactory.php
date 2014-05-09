@@ -32,7 +32,7 @@ final class LauncherFactory {
    * filter chain provider.
    * @return \Bonder\Launcher the launcher.
    */
-  public static function http(
+  public static function getHttp(
     \Bonder\Filters\FilterChainProvider $filterChainProvider) {
     $launcher = self::getDefault($filterChainProvider);
     $launcher->setConfigurationFactory(new \Bonder\Http\HttpConfigurationFactory());
@@ -69,9 +69,9 @@ final class LauncherFactory {
    * 
    * @return \Bonder\Launcher the launcher.
    */
-  public static function standardHttp(
+  public static function getStandardHttp(
     Array $resources, Array $controllers, Array $filters) {
-    return self::http(
+    return self::getHttp(
       self::getStandardFCPBuilder($resources, $controllers, $filters)->build()
     );
   }
@@ -89,10 +89,10 @@ final class LauncherFactory {
    * 
    * @return \Bonder\Launcher the launcher.
    */
-  public static function standardHttpWithDefault(
+  public static function getStandardHttpWithDefault(
     Array $resources, Array $controllers, Array $filters,
     \Bonder\Controller $defaultController) {
-    return self::http(
+    return self::getHttp(
       self::getStandardFCPBuilder($resources, $controllers, $filters)
       ->setDefaultController($defaultController)->build()
     );
