@@ -17,7 +17,7 @@ final class SimpleProcessorTest extends \PHPUnit_Framework_TestCase {
       ->willReturn($fc);
     $job->expects($this->any())->method("getRequest")
       ->willReturn($request);
-    $fc->expects($this->once())->method("call")
+    $fc->expects($this->once())->method("execute")
       ->with($request)->willReturn($response);
     $this->assertSame($response, $processor->process($job));
   }

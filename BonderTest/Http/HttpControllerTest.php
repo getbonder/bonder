@@ -7,9 +7,9 @@ namespace BonderTest\Http;
  */
 final class HttpControllerTest extends \PHPUnit_Framework_TestCase {
 
-  public function testEmptyPreFilters() {
+  public function testEmptyFilters() {
     $controller = $this->getMockForAbstractClass("\Bonder\Http\HttpController");
-    $this->assertEmpty($controller->getPreFilters());
+    $this->assertEmpty($controller->getFilters());
   }
 
   public function testContextGetter() {

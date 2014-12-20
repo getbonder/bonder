@@ -1,6 +1,7 @@
 <?php
 
 namespace Bonder;
+use Bonder\Collections\Map;
 
 
 /**
@@ -10,6 +11,13 @@ namespace Bonder;
  * @author hbandura
  */
 interface Request {
+
+  /**
+   * Returns the filter variables;
+   *
+   * @return Map the filter variables;
+   */
+  public function getFilterVariables();
 
   /**
    * Returns the URI VARIABLES \Bonder\Collections\Map params.

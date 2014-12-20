@@ -1,6 +1,8 @@
 <?php
 
 namespace Bonder\Http;
+use Bonder\Collections\Map;
+use Bonder\Http\MapsHttpRequest;
 
 /**
  * Creates requests of type \Bonder\Http\HttpRequest.
@@ -13,15 +15,16 @@ final class HttpRequestFactory implements \Bonder\RequestFactory {
    * (non-PHPdoc)
    * @see Bonder.RequestFactory::createRequest()
    */
-  public function createRequest(\Bonder\Collections\Map $uriVariables) {
-    return new \Bonder\Http\MapsHttpRequest(
-      \Bonder\Collections\Map::fromReference($_GET),
-      \Bonder\Collections\Map::fromReference($_POST),
-      \Bonder\Collections\Map::fromReference($_COOKIE),
-      \Bonder\Collections\Map::fromReference($_SESSION),
-      \Bonder\Collections\Map::fromReference($_SERVER),
-      \Bonder\Collections\Map::fromReference($_FILES),
-      $uriVariables
+  public function createRequest(Map $uriVariables) {
+    return new MapsHttpRequest(
+      Map::fromReference($_GET),
+      Map::fromReference($_POST),
+      Map::fromReference($_COOKIE),
+      Map::fromReference($_SESSION),
+      Map::fromReference($_SERVER),
+      Map::fromReference($_FILES),
+      $uriVariables,
+      new Map()
     );
   }
   

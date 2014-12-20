@@ -1,6 +1,8 @@
 <?php
 
 namespace Bonder\Filters;
+use Bonder\Filters\NextFilterCaller;
+use Bonder\Request;
 
 /**
  * Closure / lambda-function filter.
@@ -10,24 +12,26 @@ namespace Bonder\Filters;
 final class LambdaFilter implements \Bonder\Filter {
   
   /**
-   * @var function
+   * Callable function.
+   *
+   * @var callable
    */
   private $lambda;
   
   /**
    * Creates a new LambdaFilter with the lambda function given.
    * 
-   * @param function $lambda function.
+   * @param callable $lambda function.
    */
-  public function __construct($lambda) {
+  public function __construct(callable $lambda) {
     $this->lambda = $lambda;
     if (!is_callable($lambda)) {
       throw new \Bonder\Exceptions\Exception("Argument lambda is not callable");
     }
   }
   
-  public function filter(\Bonder\Request $request, 
-    \Bonder\Filters\NextFilterCaller $next) {
+  public function filter(Request $request,
+    NextFilterCaller $next) {
     $lambda = $this->lambda;
     return $lambda($request, $next);
   }

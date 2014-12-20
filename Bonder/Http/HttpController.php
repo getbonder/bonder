@@ -1,7 +1,7 @@
 <?php
 
 namespace Bonder\Http;
-use Bonder\PreFiltersAware;
+use Bonder\FiltersAware;
 
 /**
  * A controller for handling a HttpRequest.
@@ -9,14 +9,14 @@ use Bonder\PreFiltersAware;
  * @author hbandura
  * @author burzak
  */
-abstract class HttpController implements \Bonder\Controller, \Bonder\ContextAware, PreFiltersAware {
+abstract class HttpController implements \Bonder\Controller, \Bonder\ContextAware, FiltersAware {
   
   /**
    * @var \Bonder\Context
    */
   private $context;
 
-  public function getPreFilters() {
+  public function getFilters() {
     // No filters in the default implementation.
     return array();
   }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Bonder;
+use Bonder\Exceptions\Exception;
 
 /**
  * Bonder launcher.
@@ -126,6 +127,9 @@ final class Launcher {
       $factory->getRequestFactory(),
       $chainProvider);
     $response = $this->processor->process($job);
+    if (!($response instanceof Response)) {
+      throw new Exception("Processor returned a non-response");
+    }
     $response->writeTo($this->getOutputStream());
     return $response;
   }

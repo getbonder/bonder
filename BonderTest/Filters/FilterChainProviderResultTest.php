@@ -9,7 +9,6 @@ final class FilterChainProviderResultTest extends \PHPUnit_Framework_TestCase {
 
   public function testCreate() {
     $uriVariables = new \Bonder\Collections\Map();
-    $controller = $this->getMock("\Bonder\Controller");
     $filterChain = $this->getMock("\Bonder\Filters\FilterChain");
     $fcpr = new \Bonder\Filters\FilterChainProviderResult(
       $filterChain, $uriVariables);

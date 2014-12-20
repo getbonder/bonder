@@ -2,18 +2,18 @@
 namespace Bonder;
 
 /**
- * Contains Pre Filters configuration.
+ * Contains Filters configuration.
  *
  * @package Bonder
  * @author hbandura
  */
-interface PreFiltersAware {
+interface FiltersAware {
 
-  /** Returns the Pre Filters configuration. Should return an array
+  /** Returns the Filters configuration. Should return an array
    * mapping alias names to filter classes.
    *
    * @return array An array (alias => filter class name).
    */
-  public function getPreFilters();
+  public function getFilters();
 
 }

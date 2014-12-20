@@ -1,6 +1,7 @@
 <?php
 
 namespace Bonder\Http;
+use Bonder\Collections\Map;
 
 /**
  * A http request made to the web server, created from Maps.
@@ -11,39 +12,44 @@ namespace Bonder\Http;
 final class MapsHttpRequest implements \Bonder\Http\HttpRequest {
   
   /**
-   * @var Bonder\Collections\Map
+   * @var \Bonder\Collections\Map
    */
   private $get;
   
   /**
-   * @var Bonder\Collections\Map
+   * @var \Bonder\Collections\Map
    */
   private $post;
   
   /**
-   * @var Bonder\Collections\Map
+   * @var \Bonder\Collections\Map
    */
   private $cookies;
   
   /**
-   * @var Bonder\Collections\Map
+   * @var \Bonder\Collections\Map
    */
   private $session;
   
   /**
-   * @var Bonder\Collections\Map
+   * @var \Bonder\Collections\Map
    */
   private $server;
   
   /**
-   * @var Bonder\Collections\Map
+   * @var \Bonder\Collections\Map
    */
   private $files;
   
   /**
-   * @var Bonder\Collections\Map
+   * @var \Bonder\Collections\Map
    */
   private $uriVariables;
+
+  /**
+   * @var \Bonder\Collections\Map
+   */
+  private $filterVariables;
   
   /**
    * Creates a new HTTPRequest with the server info given.
@@ -55,15 +61,17 @@ final class MapsHttpRequest implements \Bonder\Http\HttpRequest {
    * @param \Bonder\Collections\Map $server
    * @param \Bonder\Collections\Map $files
    * @param \Bonder\Collections\Map $uriVariables
+   * @param \Bonder\Collections\Map $filterVariables
    */
   public function __construct(
-          \Bonder\Collections\Map $get,
-          \Bonder\Collections\Map $post,
-          \Bonder\Collections\Map $cookies,
-          \Bonder\Collections\Map $session,
-          \Bonder\Collections\Map $server,
-          \Bonder\Collections\Map $files,
-          \Bonder\Collections\Map $uriVariables
+          Map $get,
+          Map $post,
+          Map $cookies,
+          Map $session,
+          Map $server,
+          Map $files,
+          Map $uriVariables,
+          Map $filterVariables
         ) {
     $this->get = $get;
     $this->post = $post;
@@ -72,6 +80,7 @@ final class MapsHttpRequest implements \Bonder\Http\HttpRequest {
     $this->server = $server;
     $this->files = $files;
     $this->uriVariables = $uriVariables;
+    $this->filterVariables = $filterVariables;
   }
  
   public function getGET() {
@@ -129,5 +138,14 @@ final class MapsHttpRequest implements \Bonder\Http\HttpRequest {
       return 'https';
     }
     return 'http';
+  }
+
+  /**
+   * Returns the filter variables;
+   *
+   * @return Map the filter variables;
+   */
+  public function getFilterVariables(){
+    return $this->filterVariables;
   }
 }

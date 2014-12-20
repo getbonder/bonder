@@ -1,6 +1,7 @@
 <?php
 
 namespace BonderTest\Http;
+use Bonder\Collections\Map;
 
 /**
  * @author hbandura
@@ -9,13 +10,14 @@ namespace BonderTest\Http;
 final class MapsHttpRequestTest extends \PHPUnit_Framework_TestCase {
   
   public function testCreate() {
-    $get = new \Bonder\Collections\Map();
-    $post = new \Bonder\Collections\Map();
-    $cookies = new \Bonder\Collections\Map();
-    $session = new \Bonder\Collections\Map();
-    $server = new \Bonder\Collections\Map();
-    $files = new \Bonder\Collections\Map();
-    $uriVariables = new \Bonder\Collections\Map();
+    $get = new Map();
+    $post = new Map();
+    $cookies = new Map();
+    $session = new Map();
+    $server = new Map();
+    $files = new Map();
+    $uriVariables = new Map();
+    $filterVariables = new Map();
     $request = new \Bonder\Http\MapsHttpRequest(
       $get,
       $post,
@@ -23,7 +25,8 @@ final class MapsHttpRequestTest extends \PHPUnit_Framework_TestCase {
       $session,
       $server,
       $files,
-      $uriVariables
+      $uriVariables,
+      $filterVariables
     );
     $this->assertSame($get, $request->getGET());
     $this->assertSame($post, $request->getPOST());
@@ -32,6 +35,7 @@ final class MapsHttpRequestTest extends \PHPUnit_Framework_TestCase {
     $this->assertSame($server, $request->getServer());
     $this->assertSame($files, $request->getFiles());
     $this->assertSame($uriVariables, $request->getUriVariables());
+    $this->assertSame($filterVariables, $request->getFilterVariables());
   }
   
   /**
@@ -40,13 +44,14 @@ final class MapsHttpRequestTest extends \PHPUnit_Framework_TestCase {
    */
   public function create(Array $serverVars) {
     return new \Bonder\Http\MapsHttpRequest(
-      new \Bonder\Collections\Map(), // GET
-      new \Bonder\Collections\Map(), // POST
-      new \Bonder\Collections\Map(), // COOKIES
-      new \Bonder\Collections\Map(), // SESSION
-      \Bonder\Collections\Map::fromArray($serverVars),
-      new \Bonder\Collections\Map(), // FILES
-      new \Bonder\Collections\Map());// URI VARIABLES
+      new Map(), // GET
+      new Map(), // POST
+      new Map(), // COOKIES
+      new Map(), // SESSION
+      Map::fromArray($serverVars),
+      new Map(), // FILES
+      new Map(), // URI VARIABLES
+      new Map());// FILTER VARIABLES
   }
   
   public function testURI() {
