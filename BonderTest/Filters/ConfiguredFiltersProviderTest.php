@@ -26,7 +26,7 @@ final class ConfiguredFiltersProviderTest extends \PHPUnit_Framework_TestCase {
     }))->will($this->returnArgument(0));
     $wrappedProvider = $this->getMock("\Bonder\Filters\FiltersProvider");
     $wrappedProvider->expects($this->any())->method("getFilters")
-      ->with($uri)->willReturn($originalFilters);
+      ->with($uri, $controller)->willReturn($originalFilters);
     $fp = new \Bonder\Filters\ConfiguredFiltersProvider(
       $wrappedProvider, $configurator);
     $filters = $fp->getFilters($uri, $controller);
