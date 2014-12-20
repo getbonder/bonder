@@ -21,9 +21,9 @@ final class LambdaFilter implements \Bonder\Filter {
   /**
    * Creates a new LambdaFilter with the lambda function given.
    * 
-   * @param callable $lambda function.
+   * @param mixed $lambda function.
    */
-  public function __construct(callable $lambda) {
+  public function __construct($lambda) {
     $this->lambda = $lambda;
     if (!is_callable($lambda)) {
       throw new \Bonder\Exceptions\Exception("Argument lambda is not callable");
