@@ -1,6 +1,8 @@
 <?php
 
 namespace Bonder\Filters;
+use Bonder\Controller;
+use Bonder\Filters\FiltersProvider;
 
 /**
  * Decorates a filters provider, configuring the filter instances.
@@ -8,10 +10,10 @@ namespace Bonder\Filters;
  * @author hbandura
  */
 final class ConfiguredFiltersProvider 
-  implements \Bonder\Filters\FiltersProvider {
+  implements FiltersProvider {
   
   /**
-   * @var \Bonder\Filters\FiltersProvider
+   * @var FiltersProvider
    */
   private $wrappedProvider;
   
@@ -23,12 +25,12 @@ final class ConfiguredFiltersProvider
   /**
    * Creates a new ConfiguredFiltersProvider with the arguments given.
    * 
-   * @param \Bonder\Filters\FiltersProvider $wrappedProvider the wrapped
+   * @param FiltersProvider $wrappedProvider the wrapped
    * provider.
    * @param \Bonder\Util\Configurator $configurator the configurator.
    */
   public function __construct(
-    \Bonder\Filters\FiltersProvider $wrappedProvider, 
+    FiltersProvider $wrappedProvider,
     \Bonder\Util\Configurator $configurator) {
     $this->wrappedProvider = $wrappedProvider;
     $this->configurator = $configurator;
@@ -38,8 +40,8 @@ final class ConfiguredFiltersProvider
    * (non-PHPdoc)
    * @see Bonder\Filters.FiltersProvider::getFilters()
    */
-  public function getFilters($uri) {
-    $result = $this->wrappedProvider->getFilters($uri);
+  public function getFilters($uri, Controller $controller) {
+    $result = $this->wrappedProvider->getFilters($uri, $controller);
     $configurator = $this->configurator;
     array_walk($result, function($filter) use ($configurator) {
       $configurator->configure($filter);

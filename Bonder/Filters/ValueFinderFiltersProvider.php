@@ -1,6 +1,7 @@
 <?php
 
 namespace Bonder\Filters;
+use Bonder\Controller;
 
 /**
  * Filters provider implementation using a value finder.
@@ -28,11 +29,14 @@ final class ValueFinderFiltersProvider
    * (non-PHPdoc)
    * @see Bonder\Filters.FiltersProvider::getFilters()
    */
-  public function getFilters($uri) {
+  public function getFilters($uri, Controller $controller) {
     $results = $this->valueFinder->getAllValues($uri);
-    return array_map(function(\Bonder\Util\ValueFinderResult $r) {
+    $global = array_map(function(\Bonder\Util\ValueFinderResult $r) {
       return $r->getValue();
     }, $results);
+    $cFilters = $controller->getFilters();
+    $allFilters = array_merge($global, $cFilters);
+    return $allFilters;
   }
   
 }

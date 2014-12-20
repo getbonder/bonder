@@ -1,7 +1,6 @@
 <?php
 
 namespace Bonder\Http;
-use Bonder\FiltersAware;
 
 /**
  * A controller for handling a HttpRequest.
@@ -9,7 +8,7 @@ use Bonder\FiltersAware;
  * @author hbandura
  * @author burzak
  */
-abstract class HttpController implements \Bonder\Controller, \Bonder\ContextAware, FiltersAware {
+abstract class HttpController implements \Bonder\Controller, \Bonder\ContextAware {
   
   /**
    * @var \Bonder\Context
