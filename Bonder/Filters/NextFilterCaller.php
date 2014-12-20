@@ -2,6 +2,8 @@
 
 namespace Bonder\Filters;
 
+use Bonder\Request;
+
 /**
  * Caller for the next filter in the chain.
  * 
@@ -11,11 +13,12 @@ namespace Bonder\Filters;
 interface NextFilterCaller {
 
   /**
-   * Calls the next filter.
-   * 
-   * @param \Bonder\Request $request the request.
+   * Calls the next filter, passing along the processed
+   * variable values as an array (varname => value).
+   *
+   * @param Request $request the request.
+   * @param array $variables the variables.
    * @return \Bonder\Response the response.
    */
-  public function call(\Bonder\Request $request);
-
+  public function call(Request $request, Array $variables = array());
 }

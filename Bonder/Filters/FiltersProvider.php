@@ -7,7 +7,7 @@ namespace Bonder\Filters;
  * 
  * @author hbandura
  */
-interface FiltersProvider {
+interface FiltersProvider extends PreFiltersAware {
   
   /**
    * Returns the filters for the given uri.
@@ -16,5 +16,7 @@ interface FiltersProvider {
    * @return \Bonder\Filter[] the filters.
    */
   public function getFilters($uri);
+
+  public function getPreFilters();
   
 }

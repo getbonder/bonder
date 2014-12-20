@@ -8,8 +8,7 @@ namespace Bonder\Filters;
  * @author hbandura
  */
 final class SimpleFilterChain implements 
-  \Bonder\Filters\FilterChain, 
-  \Bonder\Filters\NextFilterCaller {
+  \Bonder\Filters\FilterChain {
   
   /**
    * @var \Bonder\Filter[]
