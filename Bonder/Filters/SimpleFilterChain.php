@@ -95,6 +95,21 @@ final class SimpleFilterChain implements
 /** Utility class to simplify filter chain recursion. */
 final class SimpleFilterChainNextCaller implements NextFilterCaller {
 
+  /**
+   * @var SimpleFilterChain
+   */
+  private $filterChain;
+
+  /**
+   * @var int
+   */
+  private $step;
+
+  /**
+   * @var string
+   */
+  private $alias;
+
   public function __construct(SimpleFilterChain $filterChain, $step, $alias) {
     $this->filterChain = $filterChain;
     $this->step = $step;
