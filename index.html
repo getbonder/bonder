@@ -19,8 +19,68 @@
     </section>
 
     <section class="main-content">
-      <h1>
-<a id="bonder-the-php-object-oriented-framework" class="anchor" href="#bonder-the-php-object-oriented-framework" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bonder, the PHP object oriented framework</h1>
+      <p>Bonder is a PHP Framework mainly focused on web application backend development. Its main focus is relying on Object Oriented Programming (OOP) structures and techniques, allowing for easy modularization and extension. This project was started due to, even though there are great php frameworks out there, none seemed to completely embrace decoupling and OOP.</p>
+
+<h1>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting started</h1>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>We embrace the use of <a href="https://getcomposer.org/">Composer</a> for dependency management in PHP, and as such, this is our preferred method of distribution. Simply add</p>
+
+<p><code>"require": {
+...
+    "getbonder/bonder": "dev-master",
+...
+}</code></p>
+
+<p>to your <em>composer.json</em> file.</p>
+
+<h2>
+<a id="configure-your-web-server" class="anchor" href="#configure-your-web-server" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure your web server</h2>
+
+<p>Bonder is meant to be used with routed URLs. As such, you need to configure your web server for it.</p>
+
+<h3>
+<a id="nginx--php-fpm" class="anchor" href="#nginx--php-fpm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nginx + PHP-FPM</h3>
+
+<p>Add the following server to your nginx configuration.</p>
+
+<p>`server {
+  listen       80;
+  server_name  myapplication.domain.com;</p>
+
+<p>root /var/www/myapplication/public_scripts;</p>
+
+<p>location / {
+    fastcgi_index   launcher.php;
+    fastcgi_pass    127.0.0.1:9000;
+    include         fastcgi_params;
+    fastcgi_param   SCRIPT_FILENAME    $document_root/launcher.php;
+    fastcgi_param   SCRIPT_NAME        /launcher.php;
+  }
+}`</p>
+
+<p>Remember to configure your php-fpm to listen on port 9000, or use <code>fastcgi_pass unix:/var/run/php5-fpm.sock;</code> if you are using sockets.</p>
+
+<h2>
+<a id="launcher-script" class="anchor" href="#launcher-script" aria-hidden="true"><span class="octicon octicon-link"></span></a>Launcher script</h2>
+
+<p>Now create a <em>public_scripts</em> folder in your application folder (assumed here in <em>/var/www/myapplication</em>), with a <em>launcher.php</em> file with the following contents:</p>
+
+<p>`&lt;?php
+include_once "../vendor/autoload.php";</p>
+
+<p>session_start();</p>
+
+<p>$launcher = \Bonder\LauncherFactory::getStandardHttp(
+  include "../config/resources.php",
+  include '../config/controllers.php',
+  include '../config/filters.php')-&gt;launch();
+`</p>
+
+<p>This assumes there is a folder <em>/var/www/myapplication/config</em> with the three files mentioned, which return arrays.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/getbonder/bonder">Bonder</a> is maintained by <a href="https://github.com/getbonder">getbonder</a>.</span>
