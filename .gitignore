@@ -3,5 +3,4 @@ composer.phar
 composer.lock
 .vagrant
 .idea
-bonder_public
-bonder_private
+bonder_app
