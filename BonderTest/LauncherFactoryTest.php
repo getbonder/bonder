@@ -35,7 +35,7 @@ final class LauncherFactoryTest extends \PHPUnit_Framework_TestCase {
     $response->expects($this->once())->method("writeTo")
       ->with($launcher->getOutputStream());
     $fc = $this->getMock("\Bonder\Filters\FilterChain");
-    $fc->expects($this->once())->method("call")
+    $fc->expects($this->once())->method("execute")
       ->willReturn($response);
     $fcr = new \Bonder\Filters\FilterChainProviderResult($fc, 
       new \Bonder\Collections\Map());

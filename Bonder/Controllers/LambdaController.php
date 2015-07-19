@@ -31,5 +31,13 @@ final class LambdaController implements \Bonder\Controller {
     $function = $this->lambda;
     return $function($request);
   }
-  
+
+  /** Returns the Filters configuration. Should return an array
+   * mapping alias names to filter classes.
+   *
+   * @return array An array (alias => filter class name).
+   */
+  public function getFilters() {
+    return array();
+  }
 }

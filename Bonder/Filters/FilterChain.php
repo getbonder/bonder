@@ -30,6 +30,6 @@ interface FilterChain {
    * @param \Bonder\Request $request the request.
    * @return \Bonder\Response the response.
    */
-  public function call(\Bonder\Request $request);
+  public function execute(\Bonder\Request $request);
   
 }

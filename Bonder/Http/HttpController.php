@@ -15,6 +15,11 @@ abstract class HttpController implements \Bonder\Controller, \Bonder\ContextAwar
    */
   private $context;
 
+  public function getFilters() {
+    // No filters in the default implementation.
+    return array();
+  }
+
   public function setContext(\Bonder\Context $context) {
     $this->context = $context;
   }

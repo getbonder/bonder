@@ -95,6 +95,17 @@ class Map {
   public function set($key, $value) {
     $this->values[$key] = $value;
   }
+
+  /**
+   * Sets all the values from the $otherMap.
+   *
+   * @param Map $otherMap the other map.
+   */
+  public function setAll(Map $otherMap) {
+    foreach ($otherMap->values as $key => &$value) {
+      $this->set($key, $value);
+    }
+  }
   
   /**
    * Removes the specified key from the map.

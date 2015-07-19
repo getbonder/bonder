@@ -6,16 +6,6 @@ namespace BonderTest\Filters;
  * @author hbandura
  */
 final class LambdaFilterTest extends \PHPUnit_Framework_TestCase {
-  
-  public function testThrow() {
-    try {
-      $f = new \Bonder\Filters\LambdaFilter(null);
-      $this->fail("Exception not thrown");
-    } catch (\Bonder\Exceptions\Exception $e) {
-      // success
-    }
-  }
-  
   public function testSameParameters() {
     $self = $this;
     $originalRequest = $this->getMock("\Bonder\Request");

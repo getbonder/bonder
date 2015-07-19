@@ -17,4 +17,11 @@ interface Controller {
    */
   public function service(\Bonder\Request $request);
 
+  /** Returns the Filters configuration. Should return an array
+   * mapping alias names to filter classes.
+   *
+   * @return array An array (alias => filter class name).
+   */
+  public function getFilters();
+
 }
